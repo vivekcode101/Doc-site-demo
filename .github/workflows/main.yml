@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         gem install bundler
-        bundle install
+        bundle install --gemfile tutorial/Gemfile
 
     - name: Build Nanoc site
       run: |
