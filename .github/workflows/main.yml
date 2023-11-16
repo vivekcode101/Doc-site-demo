@@ -1,0 +1,31 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v2
+      with:
+        ruby-version: 2.7  # Change this to your Ruby version
+
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Build Nanoc site
+      run: |
+         nanoc
+         nanoc view
+
+   
