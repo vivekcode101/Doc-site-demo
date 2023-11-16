@@ -3,21 +3,24 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  # Change this to your main branch
+      - main
 
 jobs:
   deploy:
     runs-on: self-hosted
 
     steps:
+      - name: Grant permissions to hosted tool cache
+        run: sudo chmod 777 /opt/hostedtoolcache
+
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.2  # Change this to your Ruby version
-          
+          ruby-version: 3.2.2
+        
 
       - name: Install dependencies
         run: |
