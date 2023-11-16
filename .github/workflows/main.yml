@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 3.2.2  # Change this to your Ruby version
+          bundler-cache: false
 
       - name: Install dependencies
         run: |
