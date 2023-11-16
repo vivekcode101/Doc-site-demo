@@ -3,29 +3,30 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main
+      - main  # Change this to your main branch
 
 jobs:
   deploy:
     runs-on: self-hosted
 
     steps:
-      - name: Grant permissions to hosted tool cache
-        run: sudo chmod 777 /opt/hostedtoolcache
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Create toolcache directory
+      run: sudo mkdir -p /opt/hostedtoolcache
+       
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.2
+        bundler-cache: false   
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2.2
-        
-
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install --gemfile tutorial/Gemfile
-
-      - name: Build Nanoc site
-        run: nanoc compile
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install --gemfile tutorial/Gemfile
+    - name: Build Nanoc site
+      run: |
+         nanoc
+         nanoc view
