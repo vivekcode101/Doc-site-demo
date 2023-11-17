@@ -20,6 +20,7 @@ jobs:
           sudo gem install bundler
           sudo gem install nanoc
           sudo gem install adsf
+          sudo gem install kramdown
 
       - name: Build Nanoc Website
         run: |
